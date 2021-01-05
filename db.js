@@ -166,7 +166,7 @@ const data = {
   ],
   users: [
     {
-      name: "Alice",
+      name: "Alice Keys",
       email: "alice@example.com",
       avatar: {
         image: {
@@ -176,7 +176,7 @@ const data = {
       }
     },
     {
-      name: "Bob",
+      name: "Bob Dylan",
       email: "bob@example.com",
       avatar: {
         image: {
@@ -186,7 +186,7 @@ const data = {
       }
     },
     {
-      name: "Celine",
+      name: "Celine Dion",
       email: "celine@example.com",
       avatar: {
         image: {
@@ -196,8 +196,8 @@ const data = {
       }
     },
     {
-      name: "Dan",
-      email: "dan@example.com",
+      name: "Dan Abramov",
+      email: "DAN@example.com",
       avatar: {
         image: {
           url: "http://examples.devmastery.pl/assets/images/avatars/m25.png"
@@ -242,13 +242,16 @@ const getAllAuthors = () => data.authors.map((author, index) => getAuthorById(in
 const getAllBooks = () => data.books.map((book, index) => getBookById(index + 1));
 const getAllUsers = () => data.users.map((user, index) => getUserById(index + 1));
 
+const getRandomUser = () => data.users[Math.floor(Math.random() * 3)].name;
+
 const db = {
   getAuthorById,
   getBookById,
   getUserById,
   getAllAuthors,
   getAllBooks,
-  getAllUsers
+  getAllUsers,
+  getRandomUser
 };
 
 module.exports = db;
