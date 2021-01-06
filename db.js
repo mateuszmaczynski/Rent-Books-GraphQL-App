@@ -133,7 +133,8 @@ const data = {
     1: [1, 2, 3, 4, 5, 6, 7],
     2: [8, 9, 10, 11, 12, 13, 14],
     3: [15, 16, 17, 18, 19, 20]
-  }
+  },
+  surnames: ["Smith","Jones","Taylor","Brown","Williams","Wilson","Johnson","Davies"]
 };
 
 const getAuthorIdByBookId = bookId => (
@@ -165,7 +166,7 @@ const getAllAuthors = () => data.authors.map((author, index) => getAuthorById(in
 const getAllBooks = () => data.books.map((book, index) => getBookById(index + 1));
 const getAllUsers = () => data.users.map((user, index) => getUserById(index + 1));
 
-const getRandomUser = () => data.users[Math.floor(Math.random() * 3)].name;
+const getRandomReader = () => `${data.users[Math.floor(Math.random() * 3)].name} ${data.surnames[Math.floor(Math.random() * 8)]}`;
 
 const db = {
   getAuthorById,
@@ -174,7 +175,7 @@ const db = {
   getAllAuthors,
   getAllBooks,
   getAllUsers,
-  getRandomUser
+  getRandomReader
 };
 
 module.exports = db;

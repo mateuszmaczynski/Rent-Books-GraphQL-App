@@ -22,7 +22,7 @@ const typeDefs = gql`
     name: String!
     email: String!
     avatar: Avatar!
-    randomNameUser: String!
+    reader: Reader
   }
   type Image {
     url: String!
@@ -30,6 +30,9 @@ const typeDefs = gql`
   type Avatar {
     image: Image!
     color: String!
+  }
+  type Reader {
+    name: String!
   }
 `;
 
