@@ -1,5 +1,4 @@
 const db = require("./db");
-const BASE_ASSETS_URL = "http://examples.devmastery.pl/assets";
 
 const resolvers = {
   Author: {
@@ -21,7 +20,7 @@ const resolvers = {
     })
   },
   Image: {
-    url: parent => BASE_ASSETS_URL + parent.path
+    url: (parent, args, context) => context.baseAssetsUrl + parent.path
   },
   User: {
     email: parent => parent.email.toLowerCase(),
