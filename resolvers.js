@@ -2,7 +2,17 @@ const resolvers = {
   Query: {
     books: (rootValue, args, { db }) => db.getAllBooks(),
     authors: (rootValue, args, { db }) => db.getAllAuthors(),
-    users: (rootValue, args, { db }) => db.getAllUsers()
+    users: (rootValue, args, { db }) => db.getAllUsers(),
+    book: (rootValue, { id }, { db }) => db.getBookById(id),
+    author: (rootValue, { id }, { db }) => db.getAuthorById(id),
+    user: (rootValue, { id }, { db }) => db.getUserById(id)
+  },
+  Book: {
+    author: (book, args, { db }) => db.getAuthorById(book.authorId),
+    cover: book => ({
+      path: book.coverPath
+    }),
+    title: book => book.title.toUpperCase()
   },
   Author: {
     books: (author, args, { db }) => author.bookIds.map(db.getBookById),
@@ -13,13 +23,6 @@ const resolvers = {
   Avatar: {
     image: avatar => ({
       path: avatar.imagePath
-    })
-  },
-  Book: {
-    title: book => book.title.toUpperCase(),
-    author: (book, args, { db }) => db.getAuthorById(book.authorId),
-    cover: book => ({
-      path: book.coverPath
     })
   },
   Image: {
