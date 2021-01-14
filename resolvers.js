@@ -1,5 +1,8 @@
-const toDbId = externalId => Buffer.from(externalId, "base64").toString();
-const toExternalId = dbId => Buffer.from(dbId).toString("base64");
+const NodeRSA = require("node-rsa");
+const key = new NodeRSA({ b: 512 });
+
+const toDbId = (externalId) => key.decrypt(externalId, "utf8");
+const toExternalId = (dbId) => key.encrypt(dbId, "base64");
 
 const resolvers = {
   Query: {
