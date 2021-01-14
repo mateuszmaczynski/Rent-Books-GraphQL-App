@@ -1,13 +1,17 @@
+const toDbId = externalId => Buffer.from(externalId, "base64").toString();
+const toExternalId = dbId => Buffer.from(dbId).toString("base64");
+
 const resolvers = {
   Query: {
     books: (rootValue, args, { db }) => db.getAllBooks(),
     authors: (rootValue, args, { db }) => db.getAllAuthors(),
     users: (rootValue, args, { db }) => db.getAllUsers(),
-    book: (rootValue, { id }, { db }) => db.getBookById(id),
-    author: (rootValue, { id }, { db }) => db.getAuthorById(id),
-    user: (rootValue, { id }, { db }) => db.getUserById(id)
+    book: (rootValue, { id }, { db }) => db.getBookById(toDbId(id)),
+    author: (rootValue, { id }, { db }) => db.getAuthorById(toDbId(id)),
+    user: (rootValue, { id }, { db }) => db.getUserById(toDbId(id))
   },
   Book: {
+    id: book => toExternalId(book.id),
     author: (book, args, { db }) => db.getAuthorById(book.authorId),
     cover: book => ({
       path: book.coverPath
@@ -15,6 +19,7 @@ const resolvers = {
     title: book => book.title.toUpperCase()
   },
   Author: {
+    id: author => toExternalId(author.id),
     books: (author, args, { db }) => author.bookIds.map(db.getBookById),
     photo: author => ({
       path: author.photoPath
@@ -29,6 +34,7 @@ const resolvers = {
     url: (image, args, { baseAssetsUrl }) => baseAssetsUrl + image.path
   },
   User: {
+    id: user => toExternalId(user.id),
     email: user => user.email.toLowerCase(),
     reader: (user, args, { db }) => ({
       name: db.getRandomReader()
