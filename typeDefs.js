@@ -4,17 +4,18 @@ const typeDefs = gql`
     query: Query
   }
   type Query {
-    authors: [Author!]!
-    author(ID: Int!): Author
-    books: [Book!]!
-    book(ID: Int!): Book
-    users: [User!]!
-    user(ID: Int!): User
+    authors(searchQuery: String! =""): [Author!]!
+    author(id: ID!): Author
+    books(searchQuery: String! = ""): [Book!]!
+    book(id: ID!): Book
+    users(searchQuery: String! = ""): [User!]!
+    user(id: ID!): User
   }
   type Author {
     id: ID!
     name: String!
     photo: Image!
+    bio: String!
     books: [Book!]!
   }
   type Book {
@@ -22,11 +23,13 @@ const typeDefs = gql`
     title: String!
     cover: Image!
     author: Author!
+    description: String!
   }
   type User {
     id: ID!
     name: String!
     email: String!
+    info: String!
     avatar: Avatar!
     reader: Reader
   }
