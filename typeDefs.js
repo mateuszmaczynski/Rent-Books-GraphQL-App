@@ -10,7 +10,11 @@ const typeDefs = gql`
     book(id: ID!): Book
     users(searchQuery: String! = ""): [User!]!
     user(id: ID!): User
+    anything(id: ID!): Anything
   }
+  
+  union Anything = Book | Author | User
+  
   type Author {
     id: ID!
     name: String!
