@@ -35,7 +35,12 @@ const resolvers = {
     book: (rootValue, { id }, { db }) => db.getBookById(toDbId(id)),
     author: (rootValue, { id }, { db }) => db.getAuthorById(toDbId(id)),
     user: (rootValue, { id }, { db }) => db.getUserById(toDbId(id)),
-    anything: (rootValue, { id }, { db }) => getAnythingByExternalId(id, db)
+    anything: (rootValue, { id }, { db }) => getAnythingByExternalId(id, db),
+    everything: (rootValue, { id }, { db }) => [
+      ...db.getAllAuthors(),
+      ...db.getAllUsers(),
+      ...db.getAllBooks()
+    ]
   },
   Book: {
     id: book => toExternalId(book.id, "Book"),
